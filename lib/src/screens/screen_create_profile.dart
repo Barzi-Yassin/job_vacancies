@@ -1,48 +1,269 @@
+
+import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_radio_group/flutter_radio_group.dart';
+import 'package:job_vacancies/src/screens/screen_home.dart';
+// import 'package:open_vacancies/src/screens/home_screen.dart';
 
 class ScreenCreateProfile extends StatelessWidget {
-  ScreenCreateProfile({Key? key}) : super(key: key);
-
-  final TextEditingController _userNameController = TextEditingController();
-  final TextEditingController _userPhoneController = TextEditingController();
-
-  final Color primaryColor = Colors.teal;
+  const ScreenCreateProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Create Profile'),
-        backgroundColor: primaryColor,
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            const Text('Name'),
-            const SizedBox(height: 10),
-            TextFormField(
-              decoration: const InputDecoration(border: OutlineInputBorder()),
-              controller: _userNameController,
+      body: SafeArea(
+          child: Container(
+        height: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: ListView(
+          children: const [
+            SizedBox(
+              height: 90,
             ),
-            const SizedBox(height: 20),
-            const Text('Phone'),
-            const SizedBox(height: 10),
-            TextFormField(
-              decoration: const InputDecoration(border: OutlineInputBorder()),
-              controller: _userPhoneController,
+            NameField(),
+            SizedBox(
+              height: 8,
             ),
-            const SizedBox(height: 30),
-              ElevatedButton(onPressed: () {}, style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(primaryColor)
-              ), child: const Text('Create')),
-
+            PhoneField(),
+            SizedBox(
+              height: 8,
+            ),
+            CityField(),
+            SizedBox(
+              height: 8,
+            ),
+            JobCatagory(),
+            RadioGroup(),
+            CreateButton()
           ],
         ),
-      ),
+      )),
+    );
+  }
+}
+
+class NameField extends StatelessWidget {
+  const NameField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return (Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 240, 0),
+          child: Text(
+            'Name',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+          child: SizedBox(
+            height: 50,
+            child: TextField(
+              obscureText: false,
+              decoration: InputDecoration(
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                filled: true,
+              ),
+            ),
+          ),
+        )
+      ],
+    ));
+  }
+}
+
+class PhoneField extends StatelessWidget {
+  const PhoneField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return (Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 240, 0),
+          child: Text(
+            'Phone',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+          child: SizedBox(
+            height: 50,
+            child: TextField(
+              obscureText: false,
+              decoration: InputDecoration(
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                filled: true,
+              ),
+            ),
+          ),
+        )
+      ],
+    ));
+  }
+}
+
+class CityField extends StatefulWidget {
+  const CityField({Key? key}) : super(key: key);
+
+  @override
+  State<CityField> createState() => _CityFieldState();
+}
+
+class _CityFieldState extends State<CityField> {
+  final List<String> cities = [
+    'Erbil',
+    'Slemany',
+    'Duhok',
+    'Halabja',
+  ];
+  String? selectedValue;
+  @override
+  Widget build(BuildContext context) {
+    initState() {
+      super.initState();
+      selectedValue = cities[0];
+    }
+
+    return (Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 255, 0),
+          child: Text(
+            'City',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+        Padding(
+            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+            child: SizedBox(
+                height: 50,
+                child: CustomDropdownButton2(
+                  buttonWidth: 300,
+                  hint: 'select city',
+                  buttonDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border:
+                          Border.all(color: const Color.fromARGB(255, 124, 124, 124)),
+                      color: const Color.fromARGB(255, 237, 237, 237)),
+                  dropdownItems: cities,
+                  value: selectedValue,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedValue = value;
+                      debugPrint(selectedValue!);
+                    });
+                  },
+                )))
+      ],
+    ));
+  }
+}
+
+class JobCatagory extends StatefulWidget {
+  const JobCatagory({Key? key}) : super(key: key);
+
+  @override
+  State<JobCatagory> createState() => _JobCatagoryState();
+}
+
+class _JobCatagoryState extends State<JobCatagory> {
+  final List<String> jobs = [
+    'Flutter Developer',
+    'fullstack developer',
+    'web developer',
+    'chief executive officer',
+  ];
+  String? selectedValue;
+  @override
+  Widget build(BuildContext context) {
+    return (Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(20, 0, 220, 0),
+          child: Text(
+            'Job Category',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+          child: SizedBox(
+              height: 50,
+              child: CustomDropdownButton2(
+                buttonWidth: 300,
+                hint: 'select city',
+                buttonDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border:
+                        Border.all(color: const Color.fromARGB(255, 124, 124, 124)),
+                    color: const Color.fromARGB(255, 237, 237, 237)),
+                dropdownItems: jobs,
+                value: selectedValue,
+                onChanged: (value) {
+                  setState(() {
+                    selectedValue = value;
+                    debugPrint(selectedValue!);
+                  });
+                },
+              )),
+        )
+      ],
+    ));
+  }
+}
+
+class RadioGroup extends StatefulWidget {
+  const RadioGroup({Key? key}) : super(key: key);
+
+  @override
+  State<RadioGroup> createState() => _RadioGroupState();
+}
+
+class _RadioGroupState extends State<RadioGroup> {
+  var _list = ["Employeed", "Unemployeed"];
+
+  var _indexHorizontal = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+      child: (FlutterRadioGroup(
+          titles: _list,
+          labelStyle: const TextStyle(color: Colors.white38),
+          labelVisible: true,
+          activeColor: const Color.fromARGB(255, 155, 10, 58),
+          titleStyle: const TextStyle(fontSize: 14),
+          defaultSelected: _indexHorizontal,
+          orientation: RGOrientation.VERTICAL,
+          onChanged: (index) {
+            setState(() {
+              _indexHorizontal = index!;
+            });
+          })),
+    );
+  }
+}
+
+class CreateButton extends StatelessWidget {
+  const CreateButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(200, 30, 0, 0),
+      child: (ElevatedButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: ((context) => const ScreenHome())));
+          },
+          child: const Text('Create Profile'))),
     );
   }
 }

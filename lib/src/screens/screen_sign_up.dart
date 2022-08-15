@@ -5,8 +5,8 @@ import 'package:job_vacancies/src/screens/screen_sign_in.dart';
 
 class ScreenSignUp extends StatelessWidget {
   ScreenSignUp({Key? key}) : super(key: key);
-  final myController = TextEditingController();
-  final myController2 = TextEditingController();
+  final controllerSignUpEmail = TextEditingController();
+  final controllerSignUpPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,23 +18,26 @@ class ScreenSignUp extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
+              // login button from signup screen
               Padding(
                 padding: const EdgeInsets.only(left: 200),
                 child: Container(
-                    height: 40,
-                    width: 100,
-                    decoration: const BoxDecoration(color: Colors.grey),
-                    child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ScreenSignIn()));
-                        },
-                        child: const Text(
-                          "Login",
-                          style: TextStyle(color: Colors.white),
-                        ))),
+                  height: 40,
+                  width: 100,
+                  decoration: const BoxDecoration(color: Colors.grey),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ScreenSignIn()));
+                    },
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 30,
@@ -49,17 +52,19 @@ class ScreenSignUp extends StatelessWidget {
               const SizedBox(
                 height: 120,
               ),
+              // email textfield
               Container(
                 height: 60,
                 width: 300,
                 decoration: const BoxDecoration(color: Colors.grey),
                 child: TextField(
-                  controller: myController,
+                  controller: controllerSignUpEmail,
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+                      borderSide:
+                          const BorderSide(width: 0, style: BorderStyle.none),
                     ),
                   ),
                 ),
@@ -67,12 +72,13 @@ class ScreenSignUp extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
+              // password textfield
               Container(
                 height: 60,
                 width: 300,
                 decoration: const BoxDecoration(color: Colors.grey),
                 child: TextField(
-                  controller: myController2,
+                  controller: controllerSignUpPassword,
                   obscureText: true,
                   enableSuggestions: false,
                   autocorrect: false,
@@ -80,7 +86,8 @@ class ScreenSignUp extends StatelessWidget {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+                      borderSide:
+                          const BorderSide(width: 0, style: BorderStyle.none),
                     ),
                   ),
                 ),
@@ -89,17 +96,22 @@ class ScreenSignUp extends StatelessWidget {
                 height: 30,
               ),
               Container(
-                  height: 50,
-                  width: 100,
-                  decoration: const BoxDecoration(color: Colors.grey),
-                  child: TextButton(
-                      onPressed: () {
-                        push(context, myController, myController2);
-                      },
-                      child: const Text(
-                        "Sign Up",
-                        style: TextStyle(color: Colors.white),
-                      )))
+                height: 50,
+                width: 100,
+                decoration: const BoxDecoration(color: Colors.grey),
+                child: TextButton(
+                  onPressed: () {
+                    push(context, controllerSignUpEmail,
+                        controllerSignUpPassword);
+                  },
+
+                  // signup button
+                  child: const Text(
+                    "Sign Up",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              )
             ],
           )
         ],

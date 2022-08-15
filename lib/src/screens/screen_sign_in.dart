@@ -56,7 +56,8 @@ class ScreenSignIn extends StatelessWidget {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+                      borderSide:
+                          const BorderSide(width: 0, style: BorderStyle.none),
                     ),
                   ),
                 ),
@@ -77,7 +78,8 @@ class ScreenSignIn extends StatelessWidget {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+                      borderSide:
+                          const BorderSide(width: 0, style: BorderStyle.none),
                     ),
                   ),
                 ),
@@ -85,7 +87,8 @@ class ScreenSignIn extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 140.0),
                 child: TextButton(
-                    onPressed: () {}, child: const Text("Forgot Your Password?")),
+                    onPressed: () {},
+                    child: const Text("Forgot Your Password?")),
               ),
               const SizedBox(
                 height: 10,
@@ -142,7 +145,7 @@ Future push(
 
 showAlertDialog(BuildContext context, String x) {
   // Create button
-  Widget okButton = FlatButton(
+  Widget okButton = ElevatedButton(
     child: const Text("OK"),
     onPressed: () {
       Navigator.of(context).pop();
@@ -168,10 +171,13 @@ showAlertDialog(BuildContext context, String x) {
 }
 
 Future delayPushU(BuildContext context) async {
-  await new Future.delayed(new Duration(milliseconds: 10), () {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => ScreenHome()),
-    );
-  });
+  await new Future.delayed(
+    new Duration(milliseconds: 10),
+    () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const ScreenHome()),
+      );
+    },
+  );
 }

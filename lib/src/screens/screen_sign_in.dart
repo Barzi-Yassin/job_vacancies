@@ -1,5 +1,7 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:job_vacancies/src/screens/screen_home.dart';
 
 class ScreenSignIn extends StatelessWidget {
   ScreenSignIn({Key? key}) : super(key: key);
@@ -107,7 +109,7 @@ class ScreenSignIn extends StatelessWidget {
     );
   }
 }
-/*
+
 Future push(
     BuildContext context, final myController, final myController2) async {
   RegExp emailRegExp = RegExp(
@@ -141,7 +143,7 @@ Future push(
 showAlertDialog(BuildContext context, String x) {
   // Create button
   Widget okButton = FlatButton(
-    child: Text("OK"),
+    child: const Text("OK"),
     onPressed: () {
       Navigator.of(context).pop();
     },
@@ -149,7 +151,7 @@ showAlertDialog(BuildContext context, String x) {
 
   // Create AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Alert!"),
+    title: const Text("Alert!"),
     content: Text(x),
     actions: [
       okButton,
@@ -169,8 +171,7 @@ Future delayPushU(BuildContext context) async {
   await new Future.delayed(new Duration(milliseconds: 10), () {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
+      MaterialPageRoute(builder: (context) => ScreenHome()),
     );
   });
 }
-*/

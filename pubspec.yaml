@@ -38,6 +38,7 @@ dependencies:
   flutter_radio_group: ^2.1.0
   url_launcher: ^6.1.5
   firebase_core: ^1.20.1
+  firebase_auth: ^3.6.3
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:job_vacancies/src/screens/screen_sign_in.dart';
 
@@ -93,7 +94,7 @@ class ScreenSignUp extends StatelessWidget {
                   decoration: const BoxDecoration(color: Colors.grey),
                   child: TextButton(
                       onPressed: () {
-                        // push(context, myController, myController2);
+                        push(context, myController, myController2);
                       },
                       child: const Text(
                         "Sign Up",
@@ -106,7 +107,7 @@ class ScreenSignUp extends StatelessWidget {
     );
   }
 }
-/*
+
 Future push(
     BuildContext context, final myController3, final myController4) async {
   RegExp emailRegExp = RegExp(
@@ -140,5 +141,3 @@ Future push(
     return user;
   }
 }
-
-*/

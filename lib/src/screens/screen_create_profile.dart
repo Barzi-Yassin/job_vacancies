@@ -1,40 +1,46 @@
 
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radio_group/flutter_radio_group.dart';
 import 'package:job_vacancies/src/screens/screen_home.dart';
 // import 'package:open_vacancies/src/screens/home_screen.dart';
 
 class ScreenCreateProfile extends StatelessWidget {
-  const ScreenCreateProfile({Key? key}) : super(key: key);
+  const ScreenCreateProfile({Key? key, this.user}) : super(key: key);
+
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       body: SafeArea(
           child: Container(
         height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ListView(
-          children: const [
-            SizedBox(
+          children:  [
+            Text('$user'),
+            Text('\nuser.uid: ${user!.uid}'),
+            const SizedBox(
               height: 90,
             ),
-            NameField(),
-            SizedBox(
+            const NameField(),
+            const SizedBox(
               height: 8,
             ),
-            PhoneField(),
-            SizedBox(
+            const PhoneField(),
+            const SizedBox(
               height: 8,
             ),
-            CityField(),
-            SizedBox(
+            const CityField(),
+            const SizedBox(
               height: 8,
             ),
-            JobCatagory(),
-            RadioGroup(),
-            CreateButton()
+            const JobCatagory(),
+            const RadioGroup(),
+            const CreateButton()
           ],
         ),
       )),

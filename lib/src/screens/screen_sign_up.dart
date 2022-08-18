@@ -1,6 +1,7 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:job_vacancies/src/screens/screen_create_profile.dart';
 import 'package:job_vacancies/src/screens/screen_sign_in.dart';
 
 class ScreenSignUp extends StatelessWidget {
@@ -101,6 +102,7 @@ class ScreenSignUp extends StatelessWidget {
                 decoration: const BoxDecoration(color: Colors.grey),
                 child: TextButton(
                   onPressed: () {
+                    // Navigator.of(context).pushNamed('/createProfile');
                     push(context, controllerSignUpEmail,
                         controllerSignUpPassword);
                   },
@@ -108,7 +110,7 @@ class ScreenSignUp extends StatelessWidget {
                   // signup button
                   child: const Text(
                     "Sign Up",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white), // `  XM89:;;FPZZa8AaFZ[\]^[]]ab♥7+♥♥
                   ),
                 ),
               )
@@ -120,23 +122,23 @@ class ScreenSignUp extends StatelessWidget {
   }
 }
 
-Future push(
-    BuildContext context, final myController3, final myController4) async {
+Future<User?> push(
+    BuildContext context, final controllerSignUpEmailParameter, final controllerSignUpPasswordParameter) async {
   RegExp emailRegExp = RegExp(
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
-  if (myController3.text == "" || myController4.text == "") {
+  if (controllerSignUpEmailParameter.text == "" || controllerSignUpPasswordParameter.text == "") {  // null check
     showAlertDialog(context, "Please enter the required information");
-  } else if (!emailRegExp.hasMatch(myController3.text)) {
+  } else if (!emailRegExp.hasMatch(controllerSignUpEmailParameter.text)) {
     return showAlertDialog(context, "Enter a vaild Email");
   } else {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
-        email: myController3.text,
-        password: myController4.text,
+        email: controllerSignUpEmailParameter.text,
+        password: controllerSignUpPasswordParameter.text,
       );
-      delayPushU(context);
+      delayPushSignup(context: context,userCredential: userCredential);
       user = userCredential.user;
 
       await user?.reload();
@@ -152,4 +154,17 @@ Future push(
     }
     return user;
   }
+}
+  Future delayPushSignup(
+    {required BuildContext context,
+    required UserCredential userCredential}) async {
+  await Future.delayed(
+    Duration(milliseconds: 10),
+    () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => ScreenCreateProfile(user: userCredential.user,)),
+      );
+    },
+  );
 }

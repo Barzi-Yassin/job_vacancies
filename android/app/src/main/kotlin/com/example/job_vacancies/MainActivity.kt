@@ -1,4 +1,4 @@
-package com.example.job_vacancies
+package app.vacancy.job_vacancies
 
 import io.flutter.embedding.android.FlutterActivity
 

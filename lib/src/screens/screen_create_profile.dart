@@ -22,7 +22,7 @@ class ScreenCreateProfile extends StatelessWidget {
         child: ListView(
           children:  [
             Text('$user'),
-            Text('\nuser.uid: ${user!.uid}'),
+            Text('\nuser.uid: ${user!.uid}'), //TODO: USE UID 
             const SizedBox(
               height: 90,
             ),

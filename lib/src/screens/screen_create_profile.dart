@@ -18,6 +18,9 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
   String? selectedCity;
   String? selectedJob;
 
+  final TextEditingController controllerName = TextEditingController();
+  final TextEditingController controllerPhone = TextEditingController();
+
   @override
   void initState() {
     debugPrint('init state run');
@@ -71,6 +74,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                   child: SizedBox(
                     height: 50,
                     child: TextField(
+                      controller: controllerName,
                       obscureText: false,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -100,6 +104,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                   child: SizedBox(
                     height: 50,
                     child: TextField(
+                      controller: controllerPhone,
                       obscureText: false,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -186,7 +191,21 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
               ],
             ),
             // const RadioGroup(),
-            const CreateButton()
+
+            // create button
+            Padding(
+              padding: const EdgeInsets.fromLTRB(200, 30, 0, 0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // TODO: firestore
+                  // (1) on users collection > 
+                  // (2) create a document and id it > 
+                  // (3) get the id from the constructor > 
+                  // (4) fill the document with the user data from this field.
+                },
+                child: const Text('Create Pprofile'),
+              ),
+            ),
           ],
         ),
       )),
@@ -223,23 +242,6 @@ class _RadioGroupState extends State<RadioGroup> {
               _indexHorizontal = index!;
             });
           })),
-    );
-  }
-}
-
-class CreateButton extends StatelessWidget {
-  const CreateButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(200, 30, 0, 0),
-      child: (ElevatedButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: ((context) => const ScreenHome())));
-          },
-          child: const Text('Create Pprofile'))),
     );
   }
 }

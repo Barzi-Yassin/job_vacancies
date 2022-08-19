@@ -2,7 +2,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:job_vacancies/src/screens/screen_create_profile.dart';
-import 'package:job_vacancies/src/screens/screen_home.dart';
 
 class ScreenSignIn extends StatelessWidget {
   ScreenSignIn({Key? key}) : super(key: key);
@@ -176,11 +175,11 @@ Future delayPushU(
     {required BuildContext context,
     required UserCredential userCredential}) async {
   await Future.delayed(
-    Duration(milliseconds: 10),
+    const Duration(milliseconds: 10),
     () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const ScreenCreateProfile()),
+        MaterialPageRoute(builder: (context) =>  ScreenCreateProfile()),
       );
     },
   );

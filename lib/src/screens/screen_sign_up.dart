@@ -159,7 +159,7 @@ Future<User?> push(
     {required BuildContext context,
     required UserCredential userCredential}) async {
   await Future.delayed(
-    Duration(milliseconds: 10),
+    const Duration(milliseconds: 10),
     () {
       Navigator.pushReplacement(
         context,

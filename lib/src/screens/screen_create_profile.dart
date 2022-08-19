@@ -74,7 +74,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                   child: SizedBox(
                     height: 50,
                     child: TextField(
-                      controller: controllerName,
+                      controller: controllerName, 
                       obscureText: false,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -104,7 +104,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                   child: SizedBox(
                     height: 50,
                     child: TextField(
-                      controller: controllerPhone,
+                      controller: controllerPhone, 
                       obscureText: false,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(

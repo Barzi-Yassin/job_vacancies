@@ -49,176 +49,172 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
     return Scaffold(
       backgroundColor: Colors.grey,
       body: SafeArea(
-          child: Container(
-        height: MediaQuery.of(context).size.height,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: ListView(
-          children: [
-            Text('${widget.user}'),
-            Text('\nuser.uid: ${widget.user?.uid}'), //TODO: USE UID
-            const SizedBox(
-              height: 90,
-            ),
-            // name
-            Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 240, 0),
-                  child: Text(
-                    'Name',
-                    style: TextStyle(fontSize: 16),
-                  ),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            children: [
+              // Text('${widget.user}'),
+              Text('\nuser.uid: ${widget.user?.uid}'),
+              const SizedBox(height: 20),
+
+              // name
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 240, 0),
+                child: Text(
+                  'Name',
+                  style: TextStyle(fontSize: 16),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                  child: SizedBox(
-                    height: 50,
-                    child: TextField(
-                      controller: controllerName, 
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        filled: true,
-                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                child: SizedBox(
+                  height: 50,
+                  child: TextField(
+                    controller: controllerName,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      filled: true,
                     ),
                   ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            // phone
-            Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 240, 0),
-                  child: Text(
-                    'Phone',
-                    style: TextStyle(fontSize: 16),
-                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                  child: SizedBox(
-                    height: 50,
-                    child: TextField(
-                      controller: controllerPhone, 
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        filled: true,
-                      ),
+              )
+            ],
+          ),
+          const SizedBox(height: 8),
+          // phone
+          Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 240, 0),
+                child: Text(
+                  'Phone',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                child: SizedBox(
+                  height: 50,
+                  child: TextField(
+                    controller: controllerPhone,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      filled: true,
                     ),
                   ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 255, 0),
-                  child: Text(
-                    'City',
-                    style: TextStyle(fontSize: 16),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 255, 0),
+                child: Text(
+                  'City',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                child: SizedBox(
+                  height: 50,
+                  child: CustomDropdownButton2(
+                    buttonWidth: 300,
+                    hint: 'select city',
+                    buttonDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 124, 124, 124)),
+                        color: const Color.fromARGB(255, 237, 237, 237)),
+                    dropdownItems: cities,
+                    value: selectedCity,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedCity = value;
+                        debugPrint(selectedCity!);
+                      });
+                    },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                  child: SizedBox(
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 220, 0),
+                child: Text(
+                  'Job Category',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                child: SizedBox(
                     height: 50,
                     child: CustomDropdownButton2(
                       buttonWidth: 300,
-                      hint: 'select city',
+                      hint: 'select job',
                       buttonDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                               color: const Color.fromARGB(255, 124, 124, 124)),
                           color: const Color.fromARGB(255, 237, 237, 237)),
-                      dropdownItems: cities,
-                      value: selectedCity,
+                      dropdownItems: jobs,
+                      value: selectedJob,
                       onChanged: (value) {
                         setState(() {
-                          selectedCity = value;
-                          debugPrint(selectedCity!);
+                          selectedJob = value;
+                          debugPrint(selectedJob!);
                         });
                       },
-                    ),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 220, 0),
-                  child: Text(
-                    'Job Category',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                  child: SizedBox(
-                      height: 50,
-                      child: CustomDropdownButton2(
-                        buttonWidth: 300,
-                        hint: 'select job',
-                        buttonDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                                color:
-                                    const Color.fromARGB(255, 124, 124, 124)),
-                            color: const Color.fromARGB(255, 237, 237, 237)),
-                        dropdownItems: jobs,
-                        value: selectedJob,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedJob = value;
-                            debugPrint(selectedJob!);
-                          });
-                        },
-                      )),
-                )
-              ],
-            ),
-            // const RadioGroup(),
+                    )),
+              )
+            ],
+          ),
+          // const RadioGroup(),
 
-            // create button
-            Padding(
-              padding: const EdgeInsets.fromLTRB(200, 30, 0, 0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // TODO: firestore
-                  // (1) on users collection > 
-                  // (2) create a document and id it > 
-                  // (3) get the id from the constructor > 
-                  // (4) fill the document with the user data from this field.
+          // create button
+          Padding(
+            padding: const EdgeInsets.fromLTRB(200, 30, 0, 0),
+            child: ElevatedButton(
+              onPressed: () {
+                // TODO: firestore
+                // (1) on users collection >
+                // (2) create a document and id it >
+                // (3) get the id from the constructor >
+                // (4) fill the document with the user data from this field.
 
-                  if (widget.user != null) {
-                    FirebaseFirestore.instance.collection('users').doc(widget.user!.uid).set({
-                      "name" : controllerName.text ,
-                      "phone" : controllerPhone.text ,
-                      "city" : selectedCity ,
-                      "job_category" : selectedJob ,
-                      "email" : widget.user!.email ,
-                      "uid" : widget.user!.uid ,
-                    });
-                  }
-                },
-                child: const Text('Create Pprofile'),
-              ),
+                if (widget.user != null) {
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(widget.user!.uid)
+                      .set({
+                    "name": controllerName.text,
+                    "phone": controllerPhone.text,
+                    "city": selectedCity,
+                    "job_category": selectedJob,
+                    "email": widget.user!.email,
+                    "uid": widget.user!.uid,
+                  });
+                }
+              },
+              child: const Text('Create Pprofile'),
             ),
-          ],
-        ),
+          ),
+        ],
       )),
     );
   }

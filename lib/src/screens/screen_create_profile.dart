@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -202,6 +203,17 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                   // (2) create a document and id it > 
                   // (3) get the id from the constructor > 
                   // (4) fill the document with the user data from this field.
+
+                  if (widget.user != null) {
+                    FirebaseFirestore.instance.collection('users').doc(widget.user!.uid).set({
+                      "name" : controllerName.text ,
+                      "phone" : controllerPhone.text ,
+                      "city" : selectedCity ,
+                      "job_category" : selectedJob ,
+                      "email" : widget.user!.email ,
+                      "uid" : widget.user!.uid ,
+                    });
+                  }
                 },
                 child: const Text('Create Pprofile'),
               ),

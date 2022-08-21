@@ -92,7 +92,7 @@ class JobVacanciesModel {
   }
 
 
-  // cimmunicate data, when we send data to some other api that we don't trust
+  // useful when we cimmunicate data, when we send data to some other api that we don't trust it.
   @override
   int get hashCode {
     return name.hashCode ^

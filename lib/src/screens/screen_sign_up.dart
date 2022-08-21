@@ -11,7 +11,7 @@ class ScreenSignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.grey.shade600,
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

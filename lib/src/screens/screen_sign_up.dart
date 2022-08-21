@@ -11,14 +11,13 @@ class ScreenSignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             children: [
-              const SizedBox(
-                height: 50,
-              ),
+              const SizedBox(height: 50),
               // login button from signup screen
               Padding(
                 padding: const EdgeInsets.only(left: 200),
@@ -40,9 +39,7 @@ class ScreenSignUp extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               const Text(
                 "REGISTER",
                 style: TextStyle(
@@ -50,9 +47,7 @@ class ScreenSignUp extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     color: Colors.black),
               ),
-              const SizedBox(
-                height: 120,
-              ),
+              const SizedBox(height: 120),
               // email textfield
               Container(
                 height: 60,
@@ -70,9 +65,7 @@ class ScreenSignUp extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               // password textfield
               Container(
                 height: 60,
@@ -93,9 +86,7 @@ class ScreenSignUp extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               Container(
                 height: 50,
                 width: 100,
@@ -110,7 +101,9 @@ class ScreenSignUp extends StatelessWidget {
                   // signup button
                   child: const Text(
                     "Sign Up",
-                    style: TextStyle(color: Colors.white), // `  XM89:;;FPZZa8AaFZ[\]^[]]ab♥7+♥♥
+                    style: TextStyle(
+                        color:
+                            Colors.white), // `  XM89:;;FPZZa8AaFZ[\]^[]]ab♥7+♥♥
                   ),
                 ),
               )
@@ -122,11 +115,13 @@ class ScreenSignUp extends StatelessWidget {
   }
 }
 
-Future<User?> push(
-    BuildContext context, final controllerSignUpEmailParameter, final controllerSignUpPasswordParameter) async {
+Future<User?> push(BuildContext context, final controllerSignUpEmailParameter,
+    final controllerSignUpPasswordParameter) async {
   RegExp emailRegExp = RegExp(
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
-  if (controllerSignUpEmailParameter.text == "" || controllerSignUpPasswordParameter.text == "") {  // null check
+  if (controllerSignUpEmailParameter.text == "" ||
+      controllerSignUpPasswordParameter.text == "") {
+    // null check
     showAlertDialog(context, "Please enter the required information");
   } else if (!emailRegExp.hasMatch(controllerSignUpEmailParameter.text)) {
     return showAlertDialog(context, "Enter a vaild Email");
@@ -138,7 +133,7 @@ Future<User?> push(
         email: controllerSignUpEmailParameter.text,
         password: controllerSignUpPasswordParameter.text,
       );
-      delayPushSignup(context: context,userCredential: userCredential);
+      delayPushSignup(context: context, userCredential: userCredential);
       user = userCredential.user;
 
       await user?.reload();
@@ -155,7 +150,8 @@ Future<User?> push(
     return user;
   }
 }
-  Future delayPushSignup(
+
+Future delayPushSignup(
     {required BuildContext context,
     required UserCredential userCredential}) async {
   await Future.delayed(
@@ -163,7 +159,10 @@ Future<User?> push(
     () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => ScreenCreateProfile(user: userCredential.user,)),
+        MaterialPageRoute(
+            builder: (context) => ScreenCreateProfile(
+                  user: userCredential.user,
+                )),
       );
     },
   );

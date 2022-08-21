@@ -57,7 +57,6 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
               // Text('${widget.user}'),
               Text('\nuser.uid: ${widget.user?.uid}'),
               const SizedBox(height: 20),
-
               // name
               const Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 240, 0),
@@ -111,9 +110,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
               )
             ],
           ),
-          const SizedBox(
-            height: 8,
-          ),
+          const SizedBox(height: 8),
           Column(
             children: [
               const Padding(

@@ -3,6 +3,7 @@ import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radio_group/flutter_radio_group.dart';
+import 'package:job_vacancies/src/models/job_users_model.dart';
 // import 'package:job_vacancies/src/screens/screen_home.dart';
 
 class ScreenCreateProfile extends StatefulWidget {
@@ -188,24 +189,28 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
             padding: const EdgeInsets.fromLTRB(200, 30, 0, 0),
             child: ElevatedButton(
               onPressed: () {
-                // TODO: firestore
-                // (1) on users collection >
-                // (2) create a document and id it >
-                // (3) get the id from the constructor >
-                // (4) fill the document with the user data from this field.
+                // "name": controllerName.text,
+                // "phone": controllerPhone.text,
+                // "city": selectedCity,
+                // "job_category": selectedJob,
+                // "email": widget.user!.email,
+                // "uid": widget.user!.uid,
 
                 if (widget.user != null) {
-                  FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(widget.user!.uid)
-                      .set({
-                    "name": controllerName.text,
-                    "phone": controllerPhone.text,
-                    "city": selectedCity,
-                    "job_category": selectedJob,
-                    "email": widget.user!.email,
-                    "uid": widget.user!.uid,
-                  });
+                  JobUserModel theUser = JobUserModel(
+                    name: controllerName.text,
+                    phoneNumber: controllerPhone.text,
+                    jobCategory: selectedJob!, // it won't be null.
+                    city: selectedCity ?? cities[0], // if it was null the first object in the cities list.
+                    email: widget.user!.email!, // it won't be null, bcz user registers using the email and password.
+                    uid: widget.user!.uid,
+                  );
+
+// TODO: fix bug here important
+                  // FirebaseFirestore.instance
+                  //     .collection('users')
+                  //     .doc(widget.user!.uid)
+                  //     .set({theUser.toMap()});
                 }
               },
               child: const Text('Create Pprofile'),

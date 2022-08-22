@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class JobVacanciesModel {
-  JobVacanciesModel({
+class JobUserModel {
+  JobUserModel({
     required this.name,
     required this.phoneNumber,
     required this.jobCategory,
@@ -18,7 +18,7 @@ class JobVacanciesModel {
   String uid;
 
   // copyWith is used to update a property
-  JobVacanciesModel copyWith({
+  JobUserModel copyWith({
     String? name,
     String? phoneNumber,
     String? jobCategory,
@@ -26,7 +26,7 @@ class JobVacanciesModel {
     String? email,
     String? uid,
   }) {
-    return JobVacanciesModel(
+    return JobUserModel(
       name: name ?? this.name,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       jobCategory: jobCategory ?? this.jobCategory,
@@ -51,8 +51,8 @@ class JobVacanciesModel {
   }
 
   // toMap is used to read a property (get data from database)
-  factory JobVacanciesModel.fromMap(Map<String, dynamic> map) {
-    return JobVacanciesModel(
+  factory JobUserModel.fromMap(Map<String, dynamic> map) {
+    return JobUserModel(
       name: map['name'] as String,
       phoneNumber: map['phoneNumber'] as String,
       jobCategory: map['jobCategory'] as String,
@@ -67,8 +67,8 @@ class JobVacanciesModel {
   // toJson is used to encode a property
   String toJson() => json.encode(toMap());
 
-  factory JobVacanciesModel.fromJson(String source) =>
-      JobVacanciesModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory JobUserModel.fromJson(String source) =>
+      JobUserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
 
 
@@ -80,7 +80,7 @@ class JobVacanciesModel {
   // compare two users
   // user1 == user2 
   @override
-  bool operator ==(covariant JobVacanciesModel other) {
+  bool operator ==(covariant JobUserModel other) {
     if (identical(this, other)) return true;
 
     return other.name == name &&

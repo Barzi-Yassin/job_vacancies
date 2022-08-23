@@ -201,16 +201,20 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                     name: controllerName.text,
                     phoneNumber: controllerPhone.text,
                     jobCategory: selectedJob!, // it won't be null.
-                    city: selectedCity ?? cities[0], // if it was null the first object in the cities list.
-                    email: widget.user!.email!, // it won't be null, bcz user registers using the email and password.
+                    city: selectedCity ??
+                        cities[
+                            0], // if it was null the first object in the cities list.
+                    email: widget.user!
+                        .email!, // it won't be null, bcz user registers using the email and password.
                     uid: widget.user!.uid,
+                    // imageUrl:
                   );
 
-// TODO: fix bug here important
-                  // FirebaseFirestore.instance
-                  //     .collection('users')
-                  //     .doc(widget.user!.uid)
-                  //     .set({theUser.toMap()});
+                  // TODO: fix bug here important
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(widget.user!.uid)
+                      .set(theUser.toMap());
                 }
               },
               child: const Text('Create Pprofile'),

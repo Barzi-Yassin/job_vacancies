@@ -2,6 +2,13 @@
 import 'dart:convert';
 
 class JobUserModel {
+  String name;
+  String phoneNumber;
+  String jobCategory;
+  String city;
+  String email;
+  String uid;
+  String? imageUrl;
   JobUserModel({
     required this.name,
     required this.phoneNumber,
@@ -9,13 +16,10 @@ class JobUserModel {
     required this.city,
     required this.email,
     required this.uid,
+     this.imageUrl,
   });
-  String name;
-  String phoneNumber;
-  String jobCategory;
-  String city;
-  String email;
-  String uid;
+
+
 
   // copyWith is used to update a property
   JobUserModel copyWith({
@@ -25,6 +29,7 @@ class JobUserModel {
     String? city,
     String? email,
     String? uid,
+    String? imageUrl,
   }) {
     return JobUserModel(
       name: name ?? this.name,
@@ -33,6 +38,7 @@ class JobUserModel {
       city: city ?? this.city,
       email: email ?? this.email,
       uid: uid ?? this.uid,
+      imageUrl: imageUrl ?? this.imageUrl,
     );
   }
 
@@ -47,6 +53,7 @@ class JobUserModel {
       'city': city,
       'email': email,
       'uid': uid,
+      'imageUrl': imageUrl,
     };
   }
 
@@ -59,6 +66,7 @@ class JobUserModel {
       city: map['city'] as String,
       email: map['email'] as String,
       uid: map['uid'] as String,
+      imageUrl: map['imageUrl'] as String,
     );
   }
 
@@ -74,7 +82,7 @@ class JobUserModel {
 
   @override
   String toString() {
-    return 'JobVacanciesModel(name: $name, phoneNumber: $phoneNumber, jobCategory: $jobCategory, city: $city, email: $email, uid: $uid)';
+    return 'JobUserModel(name: $name, phoneNumber: $phoneNumber, jobCategory: $jobCategory, city: $city, email: $email, uid: $uid, imageUrl: $imageUrl)';
   }
 
   // compare two users
@@ -82,13 +90,15 @@ class JobUserModel {
   @override
   bool operator ==(covariant JobUserModel other) {
     if (identical(this, other)) return true;
-
-    return other.name == name &&
-        other.phoneNumber == phoneNumber &&
-        other.jobCategory == jobCategory &&
-        other.city == city &&
-        other.email == email &&
-        other.uid == uid;
+  
+    return 
+      other.name == name &&
+      other.phoneNumber == phoneNumber &&
+      other.jobCategory == jobCategory &&
+      other.city == city &&
+      other.email == email &&
+      other.uid == uid &&
+      other.imageUrl == imageUrl;
   }
 
 
@@ -96,10 +106,11 @@ class JobUserModel {
   @override
   int get hashCode {
     return name.hashCode ^
-        phoneNumber.hashCode ^
-        jobCategory.hashCode ^
-        city.hashCode ^
-        email.hashCode ^
-        uid.hashCode;
+      phoneNumber.hashCode ^
+      jobCategory.hashCode ^
+      city.hashCode ^
+      email.hashCode ^
+      uid.hashCode ^
+      imageUrl.hashCode;
   }
 }

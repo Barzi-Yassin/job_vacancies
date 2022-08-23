@@ -10,14 +10,13 @@ class ScreenSignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade700,
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 50,
-              ),
               Padding(
                 padding: const EdgeInsets.only(left: 200),
                 child: Container(
@@ -34,7 +33,7 @@ class ScreenSignIn extends StatelessWidget {
                         ))),
               ),
               const SizedBox(
-                height: 100,
+                height: 10,
               ),
               const Text(
                 "LOGIN",

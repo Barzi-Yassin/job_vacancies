@@ -55,8 +55,11 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
         children: [
           Column(
             children: [
-              // Text('${widget.user}'),
-              Text('\nuser.uid: ${widget.user?.uid}'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('${widget.user}'),
+              ),
+              // Text('\nuser.uid: ${widget.user?.uid}'),
               const SizedBox(height: 20),
               // name
               const Padding(
@@ -188,7 +191,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
           Padding(
             padding: const EdgeInsets.fromLTRB(200, 30, 0, 0),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 // "name": controllerName.text,
                 // "phone": controllerPhone.text,
                 // "city": selectedCity,
@@ -211,10 +214,12 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                   );
 
                   // TODO: fix bug here important
-                  FirebaseFirestore.instance
+                  await FirebaseFirestore.instance
                       .collection('users')
                       .doc(widget.user!.uid)
-                      .set(theUser.toMap());
+                      .set(theUser.toMap())
+                      .catchError((err) => debugPrint(err))
+                      .then((value) => debugPrint('done'));
                 }
               },
               child: const Text('Create Pprofile'),

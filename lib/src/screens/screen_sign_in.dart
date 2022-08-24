@@ -1,4 +1,4 @@
-// import 'package:firebase_auth/firebase_auth.dart';
+ 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:job_vacancies/src/screens/screen_create_profile.dart';
@@ -33,7 +33,7 @@ class ScreenSignIn extends StatelessWidget {
                         ))),
               ),
               const SizedBox(
-                height: 10,
+                height: 30,
               ),
               const Text(
                 "LOGIN",
@@ -43,7 +43,7 @@ class ScreenSignIn extends StatelessWidget {
                     color: Colors.black),
               ),
               const SizedBox(
-                height: 120,
+                height: 60,
               ),
               Container(
                 height: 60,

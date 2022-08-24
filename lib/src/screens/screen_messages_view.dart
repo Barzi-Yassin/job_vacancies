@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:job_vacancies/src/screens/screen_home.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ScreenMessagesView extends StatelessWidget {
-  const ScreenMessagesView({Key? key}) : super(key: key);
+  final UserCredential usere2;
+  const  ScreenMessagesView({Key? key, required this.usere2}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +28,18 @@ class ScreenMessagesView extends StatelessWidget {
               child: Column(
                 children: [
                   // header section
-                  // Container(
-                  //   // color: Colors.yellow,
-                  //   height: 75,
-                  //   width: double.infinity,
-                  //   alignment: Alignment.center,
-                  //   child: Text(
-                  //     'open vacancies'.toUpperCase(),
-                  //     style: const TextStyle(fontSize: 25),
-                  //   ),
-                  // ),
+                  Container(
+                    color: Colors.yellow,
+                    // height: 75,
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    child: Text(
+                      // 'open vacancies'.toUpperCase(),
+                      "${usere2.user!.uid}\n${usere2.user!.email}",
+                      style: const TextStyle(fontSize: 15),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                   // body section
                   Expanded(
                     child: ListView.builder(
@@ -112,5 +115,128 @@ class ScreenMessagesView extends StatelessWidget {
             ),
           );
         
+  }
+}
+
+
+
+class InputContainer extends StatelessWidget {
+  const InputContainer({
+    Key? key,
+    required this.hintText,
+  }) : super(key: key);
+
+  final String hintText;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: Colors.grey.shade100,
+        border: Border.all(
+          color: Colors.blue,
+          width: 0.8,
+        ),
+      ),
+      width: double.infinity,
+      height: 50,
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.only(left: 15),
+      child: TextField(
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: '${hintText.toUpperCase()}:',
+        ),
+      ),
+    );
+  }
+}
+
+class OutputContainerWidget extends StatelessWidget {
+  const OutputContainerWidget({
+    Key? key,
+    required this.userName,
+    required this.company,
+    required this.roleDescription,
+    required this.url,
+  }) : super(key: key);
+
+  final String userName;
+  final String company;
+  final String roleDescription;
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: Colors.grey.shade100,
+        border: Border.all(
+          color: Colors.blue.shade200,
+          width: 1.50,
+        ),
+      ),
+      width: double.infinity,
+      height: 130,
+      margin: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+      alignment: Alignment.center,
+      //  inside_box_messages-column
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 8.0),
+            child: Text(
+              // 'username'.toUpperCase(),
+              userName.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 8.0),
+            child: Text(
+              // 'company'.toUpperCase(),
+              company.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 30.0),
+            child: Text(
+              // 'role description'.toUpperCase(),
+              roleDescription.toUpperCase(),
+              style: const TextStyle(
+                  color: Colors.grey, fontSize: 11, height: 1.4),
+              textAlign: TextAlign.start,
+              maxLines: 3,
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.only(right: 15),
+            // color: Colors.red,
+            child: InkWell(
+              child: Text(
+                'LINK',
+                style: TextStyle(color: Colors.blue.shade300),
+              ),
+              onTap: () {
+                launchUrlString(url);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

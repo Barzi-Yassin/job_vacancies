@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:job_vacancies/src/screens/screen_create_profile.dart';
+import 'package:job_vacancies/src/screens/screen_home.dart';
 
 class ScreenSignIn extends StatelessWidget {
   ScreenSignIn({Key? key}) : super(key: key);
@@ -45,6 +46,7 @@ class ScreenSignIn extends StatelessWidget {
               const SizedBox(
                 height: 60,
               ),
+              //  email
               Container(
                 height: 60,
                 width: 300,
@@ -64,6 +66,7 @@ class ScreenSignIn extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
+              //  password
               Container(
                 height: 60,
                 width: 300,
@@ -95,10 +98,10 @@ class ScreenSignIn extends StatelessWidget {
               Container(
                   height: 50,
                   width: 100,
-                  decoration: const BoxDecoration(color: Colors.grey),
+                  decoration:   BoxDecoration(color: Colors.grey.shade800),
                   child: TextButton(
                       onPressed: () {
-                        // push(context, myController, myController2);
+                        push(context, myController, myController2);
                       },
                       child: const Text(
                         "Login",
@@ -178,7 +181,7 @@ Future delayPushU(
     () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) =>  const ScreenCreateProfile()),
+        MaterialPageRoute(builder: (context) =>   ScreenHome( usere: userCredential,)),
       );
     },
   );

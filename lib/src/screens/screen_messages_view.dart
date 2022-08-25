@@ -1,13 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:job_vacancies/src/models/job_users_model.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ScreenMessagesView extends StatelessWidget {
-  const ScreenMessagesView(
-      {Key? key, required this.userConstructorfromScreenHome})
-      : super(key: key);
+  const ScreenMessagesView({
+    Key? key,
+    required this.userConstructorfromScreenHome,
+    required this.userModelConstructorfromScreenHome,
+  }) : super(key: key);
 
   final UserCredential userConstructorfromScreenHome;
+  final JobUserModel userModelConstructorfromScreenHome;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,8 @@ class ScreenMessagesView extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 // get only user credential (uid, email, so on...)
-                "${userConstructorfromScreenHome.user!.email}\n${userConstructorfromScreenHome.user!.uid}", 
+                // "${userConstructorfromScreenHome.user!.email}\n${userConstructorfromScreenHome.user!.uid}",
+                userModelConstructorfromScreenHome.email,
                 style: const TextStyle(fontSize: 15),
                 textAlign: TextAlign.center,
               ),

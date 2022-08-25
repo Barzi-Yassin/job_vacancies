@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:job_vacancies/src/models/job_users_model.dart';
 import 'package:job_vacancies/src/screens/screen_home.dart';
 
 class ScreenSignIn extends StatelessWidget {
@@ -174,17 +176,32 @@ showAlertDialog(BuildContext context, String x) {
 Future delayPushU(
     {required BuildContext context,
     required UserCredential userCredential}) async {
-  
-  
+  // TODO: get the user by userID from the users collection
+  DocumentSnapshot<Map<String, dynamic>> userDoc = await FirebaseFirestore
+      .instance
+      .collection('users')
+      .doc(userCredential.user!.uid)
+      .get();
+
+  JobUserModel jobUser =
+      JobUserModel.fromMap(userDoc.data() as Map<String, dynamic>);  // TODO: fix casting exception
+
+      // ReturnJobUser 
+
+  debugPrint(
+      'hello from jobUser model.\nuid= ${jobUser.uid}\nuser email= ${jobUser.email}');
+
   await Future.delayed(
     const Duration(milliseconds: 10),
     () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => ScreenHome(
-                  userConstructorfromSignin: userCredential,
-                )),
+          builder: (context) => ScreenHome(
+            userConstructorfromSignin: userCredential,
+            userModelConstructorfromSignin: jobUser,
+          ),
+        ),
       );
     },
   );

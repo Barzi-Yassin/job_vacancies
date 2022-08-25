@@ -16,7 +16,7 @@ class JobUserModel {
     required this.city,
     required this.email,
     required this.uid,
-     this.imageUrl,
+    this.imageUrl,
   });
 
 
@@ -57,7 +57,7 @@ class JobUserModel {
     };
   }
 
-  // toMap is used to read a property (get data from database)
+  // fromMap is used to read a property (get data from database)
   factory JobUserModel.fromMap(Map<String, dynamic> map) {
     return JobUserModel(
       name: map['name'] as String,
@@ -70,8 +70,7 @@ class JobUserModel {
     );
   }
 
-
-  // Jsin is an objet of map
+  // Json is an objet of map
   // toJson is used to encode a property
   String toJson() => json.encode(toMap());
 
@@ -100,7 +99,7 @@ class JobUserModel {
       other.uid == uid &&
       other.imageUrl == imageUrl;
   }
-
+ 
 
   // useful when we cimmunicate data, when we send data to some other api that we don't trust it.
   @override

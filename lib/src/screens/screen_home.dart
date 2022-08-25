@@ -4,8 +4,8 @@ import 'package:job_vacancies/src/screens/screen_messages_view.dart';
 import 'package:job_vacancies/src/screens/screen_no_access.dart';
 
 class ScreenHome extends StatelessWidget {
-  final UserCredential usere;
-  const ScreenHome({Key? key, required this.usere}) : super(key: key);
+  final UserCredential userConstructorfromSignin;
+  const ScreenHome({Key? key, required this.userConstructorfromSignin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ScreenHome extends StatelessWidget {
           if (snapshot.data == null) {
           return const ScreenNoAccess(); 
           } else {
-          return  ScreenMessagesView(usere2: usere,); 
+          return  ScreenMessagesView(userConstructorfromScreenHome: userConstructorfromSignin,); 
           }
 
 

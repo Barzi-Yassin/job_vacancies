@@ -1,7 +1,5 @@
- 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:job_vacancies/src/screens/screen_create_profile.dart';
 import 'package:job_vacancies/src/screens/screen_home.dart';
 
 class ScreenSignIn extends StatelessWidget {
@@ -98,7 +96,7 @@ class ScreenSignIn extends StatelessWidget {
               Container(
                   height: 50,
                   width: 100,
-                  decoration:   BoxDecoration(color: Colors.grey.shade800),
+                  decoration: BoxDecoration(color: Colors.grey.shade800),
                   child: TextButton(
                       onPressed: () {
                         push(context, myController, myController2);
@@ -172,16 +170,21 @@ showAlertDialog(BuildContext context, String x) {
   );
 }
 
-// delayPushU to go to create profile screen
+// delayPushU to go to home screen
 Future delayPushU(
     {required BuildContext context,
     required UserCredential userCredential}) async {
+  
+  
   await Future.delayed(
     const Duration(milliseconds: 10),
     () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) =>   ScreenHome( usere: userCredential,)),
+        MaterialPageRoute(
+            builder: (context) => ScreenHome(
+                  userConstructorfromSignin: userCredential,
+                )),
       );
     },
   );

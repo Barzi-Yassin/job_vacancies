@@ -66,7 +66,7 @@ class JobUserModel {
       city: map['city'] as String,
       email: map['email'] as String,
       uid: map['uid'] as String,
-      imageUrl: map['imageUrl'] as String,
+      imageUrl: map['imageUrl'] as String?, // TODO: fix error
     );
   }
 

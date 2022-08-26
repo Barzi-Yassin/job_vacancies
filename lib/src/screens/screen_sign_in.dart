@@ -194,7 +194,7 @@ Future delayPushU(
       .doc(userCredential.user!.uid)
       .get().then((value) => JobUserModel.fromMap(value.data() as Map<String, dynamic>));
 
-  / 
+  
 
   debugPrint(
       'hello from jobUser model.\nuid= ${jobUser.uid}\nuser email= ${jobUser.email}');

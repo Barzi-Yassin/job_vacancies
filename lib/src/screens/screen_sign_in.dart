@@ -176,17 +176,25 @@ showAlertDialog(BuildContext context, String x) {
 Future delayPushU(
     {required BuildContext context,
     required UserCredential userCredential}) async {
+
   // TODO: get the user by userID from the users collection
-  DocumentSnapshot<Map<String, dynamic>> userDoc = await FirebaseFirestore
+  // DocumentSnapshot<Map<String, dynamic>> userDoc = await FirebaseFirestore
+  //     .instance
+  //     .collection('users')
+  //     .doc(userCredential.user!.uid)
+  //     .get();
+
+  // JobUserModel jobUser =
+  //     JobUserModel.fromMap(userDoc.data() as Map<String, dynamic>);  // TODO: fix casting exception
+
+  // 2nd way to return job user
+  JobUserModel jobUser = await FirebaseFirestore
       .instance
       .collection('users')
       .doc(userCredential.user!.uid)
-      .get();
+      .get().then((value) => JobUserModel.fromMap(value.data() as Map<String, dynamic>));
 
-  JobUserModel jobUser =
-      JobUserModel.fromMap(userDoc.data() as Map<String, dynamic>);  // TODO: fix casting exception
-
-      // ReturnJobUser 
+  / 
 
   debugPrint(
       'hello from jobUser model.\nuid= ${jobUser.uid}\nuser email= ${jobUser.email}');

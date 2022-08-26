@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:job_vacancies/src/models/job_users_model.dart';
@@ -102,7 +103,14 @@ class ScreenMessagesView extends StatelessWidget {
                             ),
                           ),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              FirebaseFirestore.instance.collection('jobs').add({
+                                "jobTitle": "ttt",
+                                "company": "ccc",
+                                "url": "",
+                                "user": userModelConstructorfromScreenHome.toMap(),
+                              });
+                            },
                             child: const Text(
                               'SEND',
                               style: TextStyle(

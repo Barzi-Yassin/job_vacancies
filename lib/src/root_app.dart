@@ -12,7 +12,7 @@ class RootApp extends StatelessWidget {
       home: ScreenSignUp(),
       routes: {
         '/signIn' :(context) => ScreenSignIn(),
-        '/signUP' :(context) => ScreenSignUp(),
+        '/signUp' :(context) => ScreenSignUp(),
         '/createProfile' :(context) => const ScreenCreateProfile(),
       },
     );

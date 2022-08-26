@@ -44,7 +44,7 @@ class ScreenMessagesView extends StatelessWidget {
               child: Text(
                 // get only user credential (uid, email, so on...)
                 // "${userConstructorfromScreenHome.user!.email}\n${userConstructorfromScreenHome.user!.uid}",
-                userModelConstructorfromScreenHome.email,
+                '${userModelConstructorfromScreenHome.uid}\n${userModelConstructorfromScreenHome.email}\n${userModelConstructorfromScreenHome.jobCategory}\n${userModelConstructorfromScreenHome.city}',
                 style: const TextStyle(fontSize: 15),
                 textAlign: TextAlign.center,
               ),

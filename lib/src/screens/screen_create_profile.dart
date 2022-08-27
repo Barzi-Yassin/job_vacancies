@@ -50,6 +50,10 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
     final String name = basename(imagePath);
     final File image = File('${directory.path}/$name');
     final Future<File> theImage = File(imagePath).copy(image.path);
+    debugPrint('directory: $directory');
+    debugPrint('name: $name');
+    debugPrint('image: $image');
+    debugPrint('theImage: $theImage');
     return theImage;
   }
   // end of image picker
@@ -181,9 +185,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                 )
               ],
             ),
-            const SizedBox(
-              height: 8,
-            ),
+            const SizedBox(height: 8),
             Column(
               children: [
                 const Padding(

@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radio_group/flutter_radio_group.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:job_vacancies/src/models/job_users_model.dart';
 // import 'package:job_vacancies/src/screens/screen_home.dart';
 
@@ -21,6 +24,17 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
 
   final TextEditingController controllerName = TextEditingController();
   final TextEditingController controllerPhone = TextEditingController();
+
+  // image picker
+  File? image;
+  Future pickImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+
+    final imageTemp = File(image.path);
+    setState(() => this.image = imageTemp);
+  }
+  // end of image picker
 
   @override
   void initState() {
@@ -188,15 +202,19 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
             ),
             // const RadioGroup(),
 
-            // image picker 
+            // image picker
             Container(
-              padding: EdgeInsets.all(40),
+              padding: const EdgeInsets.all(40),
               child: Column(
                 children: [
-                  Placeholder(),
-                  ElevatedButton(onPressed: () {}, child: Text('Select Image')),
+                  image !=null ? Image.file(image!) :  const FlutterLogo(),
                   ElevatedButton(
-                      onPressed: () {}, child: Text('Upload The Image')),
+                      onPressed: () {
+                        pickImage();
+                      },
+                      child: const Text('Pick gallery image')),
+                  ElevatedButton(
+                      onPressed: () {}, child: const Text('Upload The Image')),
                 ],
               ),
             ),

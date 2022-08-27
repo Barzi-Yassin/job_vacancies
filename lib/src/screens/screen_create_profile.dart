@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_radio_group/flutter_radio_group.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:job_vacancies/src/models/job_users_model.dart';
@@ -27,12 +28,18 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
 
   // image picker
   File? image;
-  Future pickImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image == null) return;
 
-    final imageTemp = File(image.path);
-    setState(() => this.image = imageTemp);
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      // this exception occur when user has denied the app to access gallery
+      debugPrint('failed to pick image: $e');
+    }
   }
   // end of image picker
 
@@ -207,7 +214,14 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
               padding: const EdgeInsets.all(40),
               child: Column(
                 children: [
-                  image !=null ? Image.file(image!) :  const FlutterLogo(),
+                  image != null
+                      ? Image.file(
+                          image!,
+                          width: 201,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        )
+                      : const FlutterLogo(),
                   ElevatedButton(
                       onPressed: () {
                         pickImage();

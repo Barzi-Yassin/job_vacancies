@@ -8,6 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_radio_group/flutter_radio_group.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:job_vacancies/src/models/job_users_model.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
+
 // import 'package:job_vacancies/src/screens/screen_home.dart';
 // test
 class ScreenCreateProfile extends StatefulWidget {
@@ -34,12 +37,20 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
 
-      final imageTemp = File(image.path);
-      setState(() => this.image = imageTemp);
+      final imagePermanent = await saveImagePermanently(imagePath: image.path);
+      setState(() => this.image = imagePermanent);
     } on PlatformException catch (e) {
       // this exception occur when user has denied the app to access gallery
       debugPrint('failed to pick image: $e');
     }
+  }
+
+  Future<File> saveImagePermanently({required String imagePath}) async {
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final String name = basename(imagePath);
+    final File image = File('${directory.path}/$name');
+    final Future<File> theImage = File(imagePath).copy(image.path);
+    return theImage;
   }
   // end of image picker
 
@@ -215,11 +226,13 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
               child: Column(
                 children: [
                   image != null
-                      ? Image.file(
-                          image!,
-                          width: 201,
-                          height: 200,
-                          fit: BoxFit.cover,
+                      ? ClipOval(
+                          child: Image.file(
+                            image!,
+                            width: 201,
+                            height: 200,
+                            fit: BoxFit.cover,
+                          ),
                         )
                       : const FlutterLogo(),
                   ElevatedButton(
@@ -230,9 +243,11 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                   ElevatedButton(
                       onPressed: () {
                         pickImage(source: ImageSource.camera);
-                      }, child: const Text('Take picture')),
+                      },
+                      child: const Text('Take picture')),
                   ElevatedButton(
-                      onPressed: () {}, child: const Text('Upload The Image to cloud')),
+                      onPressed: () {},
+                      child: const Text('Upload The Image to cloud')),
                 ],
               ),
             ),

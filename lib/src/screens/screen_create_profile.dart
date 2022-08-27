@@ -29,9 +29,9 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
   // image picker
   File? image;
 
-  Future pickImage() async {
+  Future pickImage({required ImageSource source}) async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
 
       final imageTemp = File(image.path);
@@ -224,11 +224,15 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                       : const FlutterLogo(),
                   ElevatedButton(
                       onPressed: () {
-                        pickImage();
+                        pickImage(source: ImageSource.gallery);
                       },
-                      child: const Text('Pick gallery image')),
+                      child: const Text('Pick image from gallery')),
                   ElevatedButton(
-                      onPressed: () {}, child: const Text('Upload The Image')),
+                      onPressed: () {
+                        pickImage(source: ImageSource.camera);
+                      }, child: const Text('Take picture')),
+                  ElevatedButton(
+                      onPressed: () {}, child: const Text('Upload The Image to cloud')),
                 ],
               ),
             ),

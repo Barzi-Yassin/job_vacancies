@@ -58,6 +58,9 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
   }
   // end of image picker
 
+  // final fileName = image != null ? basename(image!.path) : 'no file selected';
+
+
   @override
   void initState() {
     debugPrint('init state run');
@@ -83,6 +86,9 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final String imageName =
+        image != null ? basename(image!.path) : 'no file selected';
+
     return Scaffold(
       backgroundColor: Colors.grey,
       body: SafeArea(
@@ -247,8 +253,10 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                         pickImage(source: ImageSource.camera);
                       },
                       child: const Text('Take picture')),
+                  Text(imageName),
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                      },
                       child: const Text('Upload The Image to cloud')),
                 ],
               ),

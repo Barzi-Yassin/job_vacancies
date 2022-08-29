@@ -34,6 +34,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
   File? image;
   bool isLoading = false;
   String? imgDlRef;
+  int imageNameId = 1;
 
   Future pickImage({required ImageSource source}) async {
     try {
@@ -50,8 +51,9 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
 
   Future<File> saveImagePermanently({required String imagePath}) async {
     final Directory directory = await getApplicationDocumentsDirectory();
+    // final String name = basename(imagePath);
     final String name = basename(imagePath);
-    final File image = File('${directory.path}/$name');
+    final File image = File('${directory.path}/$imageNameId');
     final Future<File> theImage = File(imagePath).copy(image.path);
     debugPrint('directory: $directory');
     debugPrint('name: $name');
@@ -68,7 +70,9 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
   uploadImage(File file) async {
     // TODO: Loading when image i being uploaded
     final storageRef = FirebaseStorage.instance.ref();
-    final imagesRef = storageRef.child("users/userImages");
+    final imagesRef = storageRef.child("users/img$imageNameId");
+    imageNameId++;
+
     // final spaceRef = storageRef.child("userImages/something.jpg");
 
     debugPrint('storageRef: $storageRef');
@@ -138,8 +142,8 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
     return Scaffold(
       backgroundColor: Colors.grey,
       body: SafeArea(
-        child: isLoading == true
-            ? const CircularProgressIndicator()
+        child: isLoading != true
+            ? const LinearProgressIndicator()
             : ListView(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [

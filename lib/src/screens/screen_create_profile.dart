@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:job_vacancies/src/models/job_users_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 // import 'package:job_vacancies/src/screens/screen_home.dart';
 // test
@@ -58,8 +59,27 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
   }
   // end of image picker
 
-  // final fileName = image != null ? basename(image!.path) : 'no file selected';
+  // Create a storage reference from our app
+  FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  // StorageReference storageRef = storage.getReference();
 
+  uploadImage(File file) {
+    // if (image == null) return;
+    // final String imageName = basename(image!.path);
+    // final destination = 'images/$imageName';
+
+    // FirebaseApi.uploadImage(destination: destination, imageUploadTask: image!);
+
+    // TODO: userImages/something.jpg
+    final storageRef = FirebaseStorage.instance.ref();
+    final imagesRef = storageRef.child("users/userImages");
+    // final spaceRef = storageRef.child("userImages/something.jpg");
+
+    debugPrint('storageRef: $storageRef');
+    debugPrint('imagesRef: $imagesRef');
+
+    imagesRef.putFile(file);
+  }
 
   @override
   void initState() {
@@ -256,8 +276,9 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                   Text(imageName),
                   ElevatedButton(
                       onPressed: () {
+                        uploadImage(File(image!.path));
                       },
-                      child: const Text('Upload The Image to cloud')),
+                      child: const Text('Upload The Image to cloud. <3')),
                 ],
               ),
             ),
@@ -339,3 +360,15 @@ class _RadioGroupState extends State<RadioGroup> {
     );
   }
 }
+
+// class FirebaseApi {
+//   static UploadTask? uploadImage(
+//       {required String destination, required File imageUploadTask}) {
+//     try {
+//       final ref = FirebaseStorage.instance.ref(destination);
+//       return ref.putFile(imageUploadTask);
+//     } on FirebaseException catch (e) {
+//       return null;
+//     }
+//   }
+// }

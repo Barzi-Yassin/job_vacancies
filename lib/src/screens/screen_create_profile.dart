@@ -32,6 +32,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
 
   // image picker
   File? image;
+  bool isLoading = false;
 
   Future pickImage({required ImageSource source}) async {
     try {
@@ -63,14 +64,8 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   // StorageReference storageRef = storage.getReference();
 
-  uploadImage(File file) {
-    // if (image == null) return;
-    // final String imageName = basename(image!.path);
-    // final destination = 'images/$imageName';
-
-    // FirebaseApi.uploadImage(destination: destination, imageUploadTask: image!);
-
-    // TODO: userImages/something.jpg
+  uploadImage(File file) async {
+    // TODO: Loading when image i being uploaded
     final storageRef = FirebaseStorage.instance.ref();
     final imagesRef = storageRef.child("users/userImages");
     // final spaceRef = storageRef.child("userImages/something.jpg");
@@ -78,7 +73,38 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
     debugPrint('storageRef: $storageRef');
     debugPrint('imagesRef: $imagesRef');
 
-    imagesRef.putFile(file);
+    imagesRef.putFile(file).snapshotEvents.listen((taskSnapshot) async {
+      switch (taskSnapshot.state) {
+        case TaskState.running:
+          setState(() => isLoading = false);
+          debugPrint('TaskState:: is <running>');
+          break;
+        case TaskState.paused:
+          debugPrint('TaskState:: is <paused>');
+          setState(() => isLoading = false);
+          break;
+        case TaskState.success:
+          debugPrint('TaskState:: is <success>');
+          final imgDlRef = await imagesRef.getDownloadURL().then(
+                (value) => debugPrint('value:: $value'),
+              );
+          break;
+        case TaskState.canceled:
+          debugPrint('TaskState:: is <canceled>');
+          setState(() => isLoading = false);
+          break;
+        case TaskState.error:
+          debugPrint('TaskState:: is <error>');
+          setState(() => isLoading = false);
+          break;
+      }
+    });
+
+    /*
+    mountainsRef.putFile(file).snapshotEvents.
+});
+
+    */
   }
 
   @override
@@ -112,7 +138,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
     return Scaffold(
       backgroundColor: Colors.grey,
       body: SafeArea(
-        child: ListView(
+        child: isLoading == true ? const CircularProgressIndicator() : ListView(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
@@ -177,6 +203,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
               ],
             ),
             const SizedBox(height: 8),
+            // city dropdown
             Column(
               children: [
                 const Padding(
@@ -212,6 +239,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
               ],
             ),
             const SizedBox(height: 8),
+            // Job Category dropdown
             Column(
               children: [
                 const Padding(
@@ -276,6 +304,9 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                   Text(imageName),
                   ElevatedButton(
                       onPressed: () {
+                        setState(() {
+                          isLoading = true;
+                        });
                         uploadImage(File(image!.path));
                       },
                       child: const Text('Upload The Image to cloud. <3')),
@@ -360,15 +391,3 @@ class _RadioGroupState extends State<RadioGroup> {
     );
   }
 }
-
-// class FirebaseApi {
-//   static UploadTask? uploadImage(
-//       {required String destination, required File imageUploadTask}) {
-//     try {
-//       final ref = FirebaseStorage.instance.ref(destination);
-//       return ref.putFile(imageUploadTask);
-//     } on FirebaseException catch (e) {
-//       return null;
-//     }
-//   }
-// }

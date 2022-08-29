@@ -35,6 +35,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
   bool isLoading = false;
   String? imgDlRef;
   int imageNameId = 1;
+  DateTime? imageNameDateTimeNow;
 
   Future pickImage({required ImageSource source}) async {
     try {
@@ -52,8 +53,9 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
   Future<File> saveImagePermanently({required String imagePath}) async {
     final Directory directory = await getApplicationDocumentsDirectory();
     // final String name = basename(imagePath);
-    final String name = basename(imagePath);
-    final File image = File('${directory.path}/$imageNameId');
+    setState(() => imageNameDateTimeNow = DateTime.now());
+    final String name = imageNameDateTimeNow.toString();
+    final File image = File('${directory.path}/$name');
     final Future<File> theImage = File(imagePath).copy(image.path);
     debugPrint('directory: $directory');
     debugPrint('name: $name');
@@ -70,8 +72,9 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
   uploadImage(File file) async {
     // TODO: Loading when image i being uploaded
     final storageRef = FirebaseStorage.instance.ref();
-    final imagesRef = storageRef.child("users/img$imageNameId");
-    imageNameId++;
+    // final imagesRef = storageRef.child("users/img$imageNameId");
+    // imageNameId++;
+    final imagesRef = storageRef.child("users/$imageNameDateTimeNow");
 
     // final spaceRef = storageRef.child("userImages/something.jpg");
 
@@ -310,7 +313,7 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                               pickImage(source: ImageSource.camera);
                             },
                             child: const Text('Take picture')),
-                        Text(imageName),
+                        Text(imageNameDateTimeNow.toString()),
                         ElevatedButton(
                             onPressed: () {
                               setState(() {

@@ -5,7 +5,7 @@ import 'package:job_vacancies/src/models/job_users_model.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ScreenMessagesView extends StatelessWidget {
-  const ScreenMessagesView({
+   ScreenMessagesView({
     Key? key,
     required this.userConstructorfromScreenHome,
     required this.userModelConstructorfromScreenHome,
@@ -13,6 +13,10 @@ class ScreenMessagesView extends StatelessWidget {
 
   final UserCredential userConstructorfromScreenHome;
   final JobUserModel userModelConstructorfromScreenHome;
+
+  // String? image = userModelConstructorfromScreenHome.imageUrl;
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +46,22 @@ class ScreenMessagesView extends StatelessWidget {
               // height: 75,
               width: double.infinity,
               alignment: Alignment.center,
-              child: Text(
-                // get only user credential (uid, email, so on...)
-                // "${userConstructorfromScreenHome.user!.email}\n${userConstructorfromScreenHome.user!.uid}",
-                '${userModelConstructorfromScreenHome.uid}\n${userModelConstructorfromScreenHome.email}\n${userModelConstructorfromScreenHome.jobCategory}\n${userModelConstructorfromScreenHome.city}',
-                style: const TextStyle(fontSize: 15),
-                textAlign: TextAlign.center,
+              child: Column(
+                children: [
+                  Text(
+                    // get only user credential (uid, email, so on...)
+                    // "${userConstructorfromScreenHome.user!.email}\n${userConstructorfromScreenHome.user!.uid}",
+                    '${userModelConstructorfromScreenHome.uid}\n${userModelConstructorfromScreenHome.email}\n${userModelConstructorfromScreenHome.name
+                    }\n${userModelConstructorfromScreenHome.phoneNumber}\n${userModelConstructorfromScreenHome.jobCategory}\n${userModelConstructorfromScreenHome.city}',
+                    style: const TextStyle(fontSize: 15),
+                    textAlign: TextAlign.center,
+                  ),
+                 userModelConstructorfromScreenHome.imageUrl  != null
+                            ? ClipOval(
+                                child: Image.network(userModelConstructorfromScreenHome.imageUrl.toString(), width: 50,)
+                              )
+                            : const FlutterLogo(),
+                ],
               ),
             ),
             // body section

@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_radio_group/flutter_radio_group.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:job_vacancies/src/models/job_users_model.dart';
+import 'package:job_vacancies/src/screens/screen_sign_in.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -349,16 +350,19 @@ class _ScreenCreateProfileState extends State<ScreenCreateProfile> {
                             email: widget.user!
                                 .email!, // it won't be null, bcz user registers using the email and password.
                             uid: widget.user!.uid,
-                            // imageUrl:
+                            imageUrl: imgDlRef,
                           );
 
-                          // TODO: fix bug here important
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(widget.user!.uid)
                               .set(theUser.toMap())
                               .catchError((err) => debugPrint(err))
-                              .then((value) => debugPrint('done'));
+                              .then((value) {
+                            debugPrint('done');
+                          });
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ScreenSignIn()));
                         }
                       },
                       child: const Text('Create Pprofile'),
